@@ -9,14 +9,16 @@ public class Usuario {
     private String tipoVinculo; // PJ ou CLT
     private boolean trabalhaComPericulosidade; // Se o usuario trabalha com periculosidade
     private boolean temFilhos;
+    private double salario;
 
     // Construtor
-    public Usuario (String nome, int idade, String tipoVinculo, boolean trabalhaComPericulosidade, boolean temFilhos) {
+    public Usuario(String nome, int idade, String tipoVinculo, boolean trabalhaComPericulosidade, boolean temFilhos, double salario) {
         this.nome = nome;
         this.idade = idade;
         this.tipoVinculo = tipoVinculo;
         this.trabalhaComPericulosidade = trabalhaComPericulosidade;
         this.temFilhos = temFilhos;
+        this.salario = salario;
     }
 
     // Métodos de acesso (getters e setters)
@@ -60,6 +62,29 @@ public class Usuario {
         this.temFilhos = temFilhos;
     }
 
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    // Método para calcular o INSS
+    public double calcularINSS() {
+        if (salario <= 1320.00) {
+            return salario * 0.075;
+        } else if (salario <= 2571.29) {
+            return salario * 0.09;
+        } else if (salario <= 3856.94) {
+            return salario * 0.12;
+        } else if (salario <= 7507.49) {
+            return salario * 0.14;
+        } else {
+            return 7507.49 * 0.14; // Teto máximo
+        }
+    }
+
     // Métodos para exibir os dados do usuário
     public void exibirDados() {
         System.out.println("Nome: " + nome);
@@ -67,9 +92,11 @@ public class Usuario {
         System.out.println("Tipo de Vínculo: " + tipoVinculo);
         System.out.println("Trabalha com Periculosidade: " + (trabalhaComPericulosidade ? "Sim" : "Não"));
         System.out.println("Tem filhos: " + (temFilhos ? "Sim" : "Não"));
+        System.out.println("Salário: R$ " + salario);
+        System.out.println("Desconto INSS: R$ " + calcularINSS());
     }
 
-    // Métodos para exibir os dados do usuário
+    // Método para criar o usuário a partir do console
     public static Usuario criarUsuario() {
         Scanner scanner = new Scanner(System.in);
 
@@ -78,7 +105,7 @@ public class Usuario {
 
         System.out.print("Digite sua idade: ");
         int idade = scanner.nextInt();
-        scanner.nextLine();  // Consumir a nova linha após a entrada do número
+        scanner.nextLine();  // Consumir a quebra de linha após o número
 
         System.out.print("Digite o tipo de vínculo (PJ ou CLT): ");
         String tipoVinculo = scanner.nextLine();
@@ -89,7 +116,10 @@ public class Usuario {
         System.out.print("Você tem filhos? (true/false): ");
         boolean temFilhos = scanner.nextBoolean();
 
-        // Criando o objeto Usuario
-        return new Usuario(nome, idade, tipoVinculo, trabalhaComPericulosidade, temFilhos);
+        System.out.print("Digite o valor do seu salário: ");
+        double salario = scanner.nextDouble();
+
+        // Criando e retornando o objeto Usuario
+        return new Usuario(nome, idade, tipoVinculo, trabalhaComPericulosidade, temFilhos, salario);
     }
 }
