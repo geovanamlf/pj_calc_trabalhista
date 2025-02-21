@@ -92,8 +92,8 @@ public class Usuario {
         System.out.println("Tipo de Vínculo: " + tipoVinculo);
         System.out.println("Trabalha com Periculosidade: " + (trabalhaComPericulosidade ? "Sim" : "Não"));
         System.out.println("Tem filhos: " + (temFilhos ? "Sim" : "Não"));
-        System.out.println("Salário: R$ " + salario);
-        System.out.println("Desconto INSS: R$ " + calcularINSS());
+        System.out.printf("Salário: R$ %.2f%n", salario);
+        System.out.printf("Desconto INSS: R$ %.2f%n", calcularINSS());
     }
 
     // Método para criar o usuário a partir do console
